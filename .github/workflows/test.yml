@@ -1,0 +1,31 @@
+name: Run Python Tests # Name of the workflw version shown in the GitHub Actions UI
+
+on: [push, pull_request] #this tells GitHub when to run the workflow. In this case, it will run on push and pull request events to the main branch
+
+jobs: # A workflow can contain several jobs here we have only one job called test 
+  test:
+
+    runs-on: ubuntu-latest # tells github to create a virtal enviornment with the latest version of ubuntu to run the job/workflow
+
+    strategy: # GitubHub will run the jobs twice, once for each version of python specified in the matrix
+      matrix:
+        python-version: ["3.10", "3.11"]
+
+    steps:
+
+      - name: Checkout repository # This step checks out the code from the repository so that it can be used in the workflow similar to git clone
+        uses: actions/checkout@v4
+
+      - name: Set up Python # install the requested python version in the matrix and set it up for use in the workflow
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: make install 
+
+      - name: Run Linter
+        run: make lint
+
+      - name: Run Tests
+        run: make test
