@@ -1,0 +1,31 @@
+name: Load Test
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: make install 
+
+      - name: Run load test
+        run: |
+          locust -f locustfile.py \
+          --headless \
+          -u 50 \
+          -r 10 \
+          -t 1m \
+          --host http://your-staging-url.com
