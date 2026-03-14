@@ -19,32 +19,20 @@ Source it
 
 # CI/CD Pipeline Diagram
 
-[Developer]
-     |
-     | Push code to GitHub
-     v
-[GitHub Repository]
-     |
-     | Trigger GitHub Actions workflow (on push/PR)
-     v
-[GitHub Actions Runner]
-     |
-     | 1️⃣ Checkout code
-     | 2️⃣ Install dependencies
-     | 3️⃣ Run Makefile commands (build/test)
-     v
-[Optional: AWS CodeBuild]
-     |
-     | Execute buildspec.yml
-     | - install
-     | - pre_build
-     | - build
-     | - post_build
-     v
-[Artifacts / Output]
-     |
-     | - Test results
-     | - Built artifacts
-     | - Logs
-     v
-[Feedback to Developer]
+flowchart TD
+    A[Developer] --> B[GitHub Repository]
+    B --> C[GitHub Actions Workflow]
+    C --> D[GitHub Actions Runner]
+    D --> D1[Checkout code]
+    D --> D2[Install dependencies]
+    D --> D3[Run Makefile commands (build/test)]
+    D3 --> E[AWS CodeBuild]
+    E --> E1[Install dependencies (buildspec.yml)]
+    E --> E2[Pre-build steps (buildspec.yml)]
+    E --> E3[Build commands (buildspec.yml)]
+    E --> E4[Post-build steps (buildspec.yml)]
+    E4 --> F[Artifacts / Output]
+    F --> F1[Test results]
+    F --> F2[Built artifacts]
+    F --> F3[Logs]
+    F --> G[Feedback to Developer]
