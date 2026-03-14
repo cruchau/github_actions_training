@@ -1,23 +1,44 @@
-# github-actions-demo
-This is a repo for building out Github Actions and Tricks.
+# GitHub Actions Demo
 
-## Themes 
-This repo also surface key concepts of CI/CD develoment: 
-- Makefile with install, lint, and test
-- .github/workflows/*.yml for github actions
-- dockerfile and the ECS
-- buildspec.yml to use AWS CodeBuilt
-- locust libraire for full CI/CD pipelines
+This repository demonstrates building **CI/CD pipelines** using **GitHub Actions**, **AWS CodeBuild**, and related tools. It serves as a reference for learning CI/CD concepts and best practices.
 
-## To use my project you can do this
+## 📝 Project Themes
 
-Create a virtualenv
-```python3 -m venv ~/.github-actions-demo```
+This repo covers key CI/CD concepts:
 
-Source it
-```source ~/.github-actions-demo/bin/activate```
+- **Makefile** with commands like `install`, `lint`, `test`
+- **GitHub Actions workflows** (`.github/workflows/*.yml`)
+- **Dockerfile** and **ECS deployment**
+- **AWS CodeBuild** integration with `buildspec.yml`
+- **Locust** library for full CI/CD pipelines
 
-# CI/CD Pipeline Diagram
+## ⚡ Setup Instructions
+
+1. **Create a virtual environment**
+```bash
+python3 -m venv ~/.github-actions-demo
+```
+
+2. **Activate the virtual environment**
+```bash
+source ~/.github-actions-demo/bin/activate
+```
+
+3. **Install dependencies** (if any)
+```bash
+pip install -r requirements.txt
+```
+
+4. **Run Makefile commands**
+```bash
+make install
+make lint
+make test
+```
+
+## 🚀 CI/CD Pipeline Diagram
+
+This diagram shows the flow from **code push** to **artifacts and feedback**, including **GitHub Actions** and **AWS CodeBuild**.
 
 ```mermaid
 flowchart TD
@@ -28,13 +49,29 @@ flowchart TD
     D --> D2[Install dependencies]
     D --> D3[Run Makefile commands]
     D3 --> E[AWS CodeBuild]
-    E --> E1[Install dependencies (buildspec)]
-    E --> E2[Pre-build steps (buildspec)]
-    E --> E3[Build commands (buildspec)]
-    E --> E4[Post-build steps (buildspec)]
-    E4 --> F[Artifacts / Output]
+    E --> E1[Install dependencies]
+    E --> E2[Pre-build steps]
+    E --> E3[Build commands]
+    E --> E4[Post-build steps]
+    E4 --> F[Artifacts and Output]
     F --> F1[Test results]
     F --> F2[Built artifacts]
     F --> F3[Logs]
     F --> G[Feedback to Developer]
 ```
+
+## 📂 Key Files in the Repo
+
+| File | Purpose |
+|------|---------|
+| `Makefile` | Defines `install`, `lint`, `test`, `build` commands |
+| `.github/workflows/*.yml` | GitHub Actions workflows |
+| `Dockerfile` | Containerize the project |
+| `buildspec.yml` | AWS CodeBuild instructions |
+| `requirements.txt` | Python dependencies |
+
+## 🔑 Notes
+
+- GitHub Actions handles **automatic builds, tests, and notifications** on push/PR.
+- AWS CodeBuild can be used for **scalable AWS-native builds and deployments**.
+- This setup can be extended for **ECS, S3, Lambda**, or any AWS deployment pipeline.
