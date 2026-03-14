@@ -19,6 +19,7 @@ Source it
 
 # CI/CD Pipeline Diagram
 
+```mermaid
 flowchart TD
     A[Developer] --> B[GitHub Repository]
     B --> C[GitHub Actions Workflow]
